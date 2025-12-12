@@ -70,10 +70,12 @@ async function seed() {
 
     console.log('✅ Database seeded successfully!');
     console.log(`📦 Inserted ${nikeProducts.length} Nike products`);
+    process.exit(0);
   } catch (error) {
     console.error('❌ Error seeding database:', error);
-    throw error;
+    process.exit(1);
   }
 }
 
 seed();
+
