@@ -1,0 +1,31 @@
+import Link from 'next/link';
+
+export default function Navbar() {
+  return (
+    <header className="nike-navbar">
+      <div className="nike-navbar__container">
+        {/* Nike Logo */}
+        <Link href="/">
+          <svg className="nike-navbar__logo" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M24 7.8L6.442 15.276c-1.456.616-2.679.925-3.668.925-1.12 0-1.933-.392-2.437-1.177-.317-.504-.41-1.143-.28-1.918.13-.775.476-1.6 1.036-2.478.467-.71 1.232-1.643 2.297-2.8a6.122 6.122 0 00-.784 1.848c-.224.93-.168 1.746.168 2.45.336.703.896 1.055 1.68 1.055.672 0 1.568-.224 2.688-.672L24 7.8z" />
+          </svg>
+        </Link>
+
+        {/* Navigation Links */}
+        <nav className="nike-navbar__nav">
+          <Link href="#" className="nike-navbar__link">Men</Link>
+          <Link href="#" className="nike-navbar__link">Women</Link>
+          <Link href="#" className="nike-navbar__link">Kids</Link>
+          <Link href="#" className="nike-navbar__link">Collections</Link>
+          <Link href="#" className="nike-navbar__link">Contact</Link>
+        </nav>
+
+        {/* Actions */}
+        <div className="nike-navbar__actions">
+          <Link href="#" className="nike-navbar__search">Search</Link>
+          <Link href="#" className="nike-navbar__cart">My Cart (2)</Link>
+        </div>
+      </div>
+    </header>
+  );
+}

@@ -21,45 +21,33 @@ export default function ProductCard({ product }: ProductCardProps) {
     return `$${(price / 100).toFixed(2)}`;
   };
 
+  // Simulate color count (in real app, this would come from database)
+  const colorCount = Math.floor(Math.random() * 5) + 1;
+
   return (
-    <div className="group relative bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+    <div className="product-card">
       {/* Image Container */}
-      <div className="relative h-72 bg-gradient-to-br from-slate-100 to-slate-200 overflow-hidden">
+      <div className="product-card__image-container">
+        {/* Best Seller Badge - show randomly for demo */}
+        {product.id % 3 === 0 && (
+          <div className="product-card__badge">Best Seller</div>
+        )}
         <Image
           src={product.image}
           alt={product.name}
           fill
-          className="object-cover group-hover:scale-110 transition-transform duration-500"
+          className="product-card__image"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
-        {/* Category Badge */}
-        <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-semibold">
-          {product.category}
-        </div>
       </div>
 
       {/* Content */}
-      <div className="p-6">
-        <h3 className="text-xl font-bold mb-2 text-slate-900 group-hover:text-orange-600 transition-colors">
-          {product.name}
-        </h3>
-        <p className="text-slate-600 text-sm mb-4 line-clamp-2">
-          {product.description}
-        </p>
-
-        {/* Price and CTA */}
-        <div className="flex items-center justify-between">
-          <span className="text-2xl font-bold text-slate-900">
-            {formatPrice(product.price)}
-          </span>
-          <button className="bg-black text-white px-6 py-2 rounded-full font-semibold hover:bg-orange-600 transition-colors duration-300 transform hover:scale-105">
-            Add to Cart
-          </button>
-        </div>
+      <div className="product-card__content">
+        <h3 className="product-card__title">{product.name}</h3>
+        <p className="product-card__category">{product.category}</p>
+        <p className="product-card__colors">{colorCount} Colour{colorCount > 1 ? 's' : ''}</p>
+        <p className="product-card__price">{formatPrice(product.price)}</p>
       </div>
-
-      {/* Hover Effect Overlay */}
-      <div className="absolute inset-0 border-2 border-transparent group-hover:border-orange-500 rounded-2xl transition-all duration-300 pointer-events-none"></div>
     </div>
   );
 }

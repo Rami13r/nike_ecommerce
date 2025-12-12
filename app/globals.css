@@ -57,3 +57,309 @@
   --text-footnote--line-height: 18px;
   --text-footnote--font-weight: 400;
 }
+
+/* ========================================
+   NAVBAR STYLES
+   ======================================== */
+
+.nike-navbar {
+  background-color: var(--color-light-100);
+  border-bottom: 1px solid var(--color-light-300);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+}
+
+.nike-navbar__container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+}
+
+.nike-navbar__logo {
+  width: 60px;
+  height: 60px;
+  fill: var(--color-dark-900);
+  transition: opacity 0.2s ease;
+}
+
+.nike-navbar__logo:hover {
+  opacity: 0.7;
+}
+
+.nike-navbar__nav {
+  display: none;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .nike-navbar__nav {
+    display: flex;
+  }
+}
+
+.nike-navbar__link {
+  color: var(--color-dark-900);
+  font-size: var(--text-body-medium);
+  line-height: var(--text-body-medium--line-height);
+  font-weight: var(--text-body-medium--font-weight);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nike-navbar__link:hover {
+  color: var(--color-dark-700);
+}
+
+.nike-navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nike-navbar__search,
+.nike-navbar__cart {
+  color: var(--color-dark-900);
+  font-size: var(--text-body);
+  line-height: var(--text-body--line-height);
+  font-weight: var(--text-body--font-weight);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nike-navbar__search:hover,
+.nike-navbar__cart:hover {
+  color: var(--color-dark-700);
+}
+
+/* ========================================
+   PRODUCT CARD STYLES
+   ======================================== */
+
+.product-card {
+  background-color: var(--color-light-100);
+  border-radius: 0;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+}
+
+.product-card__badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background-color: var(--color-light-100);
+  color: var(--color-orange);
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.25rem;
+  font-size: var(--text-footnote);
+  line-height: var(--text-footnote--line-height);
+  font-weight: var(--text-caption--font-weight);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.product-card__image-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-color: var(--color-light-200);
+  overflow: hidden;
+}
+
+.product-card__image {
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.product-card:hover .product-card__image {
+  transform: scale(1.05);
+}
+
+.product-card__content {
+  padding: 1.5rem 0.75rem;
+}
+
+.product-card__title {
+  color: var(--color-dark-900);
+  font-size: var(--text-body-medium);
+  line-height: var(--text-body-medium--line-height);
+  font-weight: var(--text-body-medium--font-weight);
+  margin-bottom: 0.25rem;
+}
+
+.product-card__category {
+  color: var(--color-dark-700);
+  font-size: var(--text-caption);
+  line-height: var(--text-caption--line-height);
+  font-weight: var(--text-body--font-weight);
+  margin-bottom: 0.5rem;
+}
+
+.product-card__colors {
+  color: var(--color-dark-700);
+  font-size: var(--text-caption);
+  line-height: var(--text-caption--line-height);
+  font-weight: var(--text-body--font-weight);
+  margin-bottom: 1rem;
+}
+
+.product-card__price {
+  color: var(--color-dark-900);
+  font-size: var(--text-body-medium);
+  line-height: var(--text-body-medium--line-height);
+  font-weight: var(--text-body-medium--font-weight);
+}
+
+/* ========================================
+   FOOTER STYLES
+   ======================================== */
+
+.nike-footer {
+  background-color: var(--color-dark-900);
+  color: var(--color-light-100);
+  padding: 3rem 0 2rem;
+  margin-top: 6rem;
+}
+
+.nike-footer__container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.nike-footer__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+@media (min-width: 640px) {
+  .nike-footer__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .nike-footer__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.nike-footer__column-title {
+  color: var(--color-light-100);
+  font-size: var(--text-body);
+  line-height: var(--text-body--line-height);
+  font-weight: var(--text-body-medium--font-weight);
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.nike-footer__links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.nike-footer__link {
+  color: var(--color-dark-700);
+  font-size: var(--text-caption);
+  line-height: var(--text-caption--line-height);
+  font-weight: var(--text-body--font-weight);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nike-footer__link:hover {
+  color: var(--color-light-100);
+}
+
+.nike-footer__social {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.nike-footer__social-link {
+  width: 32px;
+  height: 32px;
+  background-color: var(--color-dark-700);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.nike-footer__social-link:hover {
+  background-color: var(--color-light-100);
+}
+
+.nike-footer__social-icon {
+  width: 16px;
+  height: 16px;
+  fill: var(--color-light-100);
+}
+
+.nike-footer__social-link:hover .nike-footer__social-icon {
+  fill: var(--color-dark-900);
+}
+
+.nike-footer__bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .nike-footer__bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.nike-footer__location {
+  color: var(--color-dark-700);
+  font-size: var(--text-footnote);
+  line-height: var(--text-footnote--line-height);
+  font-weight: var(--text-body--font-weight);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nike-footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.nike-footer__legal-link {
+  color: var(--color-dark-700);
+  font-size: var(--text-footnote);
+  line-height: var(--text-footnote--line-height);
+  font-weight: var(--text-body--font-weight);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nike-footer__legal-link:hover {
+  color: var(--color-light-100);
+}
