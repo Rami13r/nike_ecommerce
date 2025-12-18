@@ -18,6 +18,9 @@ export const user = pgTable("user", {
   image: text("image"),
   createdAt: timestamp("createdAt").notNull(),
   updatedAt: timestamp("updatedAt").notNull(),
+  dob: text("dob"),
+  gender: text("gender"),
+  shoeSize: text("shoeSize"),
 });
 
 export const session = pgTable("session", {
