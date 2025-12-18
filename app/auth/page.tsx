@@ -24,8 +24,11 @@ export default function AuthPage() {
         await authClient.signIn.email({
           email,
           password,
-          callbackURL: '/',
         }, {
+          onSuccess: () => {
+            router.push('/');
+            router.refresh();
+          },
           onError: (ctx) => {
             setError(ctx.error.message || 'Login failed');
           }
@@ -35,8 +38,11 @@ export default function AuthPage() {
           email,
           password,
           name,
-          callbackURL: '/',
         }, {
+          onSuccess: () => {
+            router.push('/');
+            router.refresh();
+          },
           onError: (ctx) => {
             setError(ctx.error.message || 'Signup failed');
           }

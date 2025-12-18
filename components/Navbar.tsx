@@ -32,7 +32,7 @@ export default function Navbar() {
       <div className="bg-light-200 py-1 px-12 flex justify-end gap-4 text-[11px] font-bold">
         {mounted && !isPending && session ? (
           <>
-            <span className="text-dark-900 border-r border-light-400 pr-4">Hi, {session.user.name}</span>
+            <Link href="/profile" className="text-dark-900 border-r border-light-400 pr-4 hover:underline">Hi, {session.user.name}</Link>
             <button onClick={handleSignOut} className="hover:opacity-70">Sign Out</button>
           </>
         ) : (
