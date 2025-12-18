@@ -6,7 +6,10 @@ export const products = pgTable('products', {
   description: text('description').notNull(),
   price: integer('price').notNull(), // Price in cents
   image: text('image').notNull(),
-  category: text('category').notNull(),
+  category: text('category').notNull(), // Men, Women, Kids
+  subcategory: text('subcategory'), // Shoes, Clothing, etc.
+  color: text('color'),
+  gender: text('gender'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 

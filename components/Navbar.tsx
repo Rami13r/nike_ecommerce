@@ -51,10 +51,10 @@ export default function Navbar() {
 
         {/* Navigation Links */}
         <nav className="nike-navbar__nav">
-          <Link href="#" className="nike-navbar__link">Men</Link>
-          <Link href="#" className="nike-navbar__link">Women</Link>
-          <Link href="#" className="nike-navbar__link">Kids</Link>
-          <Link href="#" className="nike-navbar__link">Collections</Link>
+          <Link href="/shop?category=Men" className="nike-navbar__link">Men</Link>
+          <Link href="/shop?category=Women" className="nike-navbar__link">Women</Link>
+          <Link href="/shop?category=Kids" className="nike-navbar__link">Kids</Link>
+          <Link href="/shop" className="nike-navbar__link">Shop All</Link>
           <Link href="#" className="nike-navbar__link">Contact</Link>
         </nav>
 

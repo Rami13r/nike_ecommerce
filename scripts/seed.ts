@@ -3,61 +3,118 @@ import { db } from '../lib/db';
 import { products } from '../lib/db/schema';
 
 const nikeProducts = [
+  // Men's Shoes
   {
     name: 'Nike Air Max 270',
-    description: 'The Nike Air Max 270 delivers visible cushioning under every step. With its sleek design and comfortable fit, it\'s perfect for all-day wear.',
-    price: 15000, // $150.00
+    description: 'Featuring the first ever Max Air unit created specifically for Nike Sportswear.',
+    price: 15000,
     image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80',
-    category: 'Shoes',
+    category: 'Men',
+    subcategory: 'Shoes',
+    color: 'Red',
   },
   {
-    name: 'Nike Dri-FIT Running Shirt',
-    description: 'Stay cool and dry with Nike Dri-FIT technology. This lightweight running shirt wicks away sweat to keep you comfortable during your workout.',
-    price: 4500, // $45.00
-    image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&q=80',
-    category: 'Apparel',
+    name: 'Nike Air Force 1 \'07',
+    description: 'The brilliance lives on in the Nike Air Force 1 \'07, the basketball OG that puts a fresh spin on what you know best.',
+    price: 11000,
+    image: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&q=80',
+    category: 'Men',
+    subcategory: 'Shoes',
+    color: 'White',
   },
   {
-    name: 'Nike React Infinity Run',
-    description: 'Designed to help reduce injury, the Nike React Infinity Run continues to push the boundaries of running shoe innovation.',
-    price: 16000, // $160.00
+    name: 'Nike Dunk Low',
+    description: 'Created for the hardwood but taken to the streets, the \'80s b-ball icon returns with perfectly sheened overlays.',
+    price: 11500,
+    image: 'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=800&q=80',
+    category: 'Men',
+    subcategory: 'Shoes',
+    color: 'Panda',
+  },
+  // Women's Shoes
+  {
+    name: 'Nike Air Max Pulse',
+    description: 'The Air Max Pulse pulls inspiration from the London music scene to bring a tough-built touch to the iconic Air Max line.',
+    price: 15500,
     image: 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=800&q=80',
-    category: 'Shoes',
+    category: 'Women',
+    subcategory: 'Shoes',
+    color: 'Grey',
+  },
+  {
+    name: 'Nike Air Jordan 1 High',
+    description: 'New colors and fresh textures give you an updated AJ1 without losing that iconic look and familiar feel.',
+    price: 18000,
+    image: 'https://images.unsplash.com/photo-1584735175315-9d5df23860e6?w=800&q=80',
+    category: 'Women',
+    subcategory: 'Shoes',
+    color: 'Blue',
+  },
+  // Kids' Shoes
+  {
+    name: 'Air Jordan 1 Mid',
+    description: 'The Air Jordan 1 Mid brings full-court style and premium comfort to an iconic look.',
+    price: 10000,
+    image: 'https://images.unsplash.com/photo-1514989940723-e8e51635b782?w=800&q=80',
+    category: 'Kids',
+    subcategory: 'Shoes',
+    color: 'Black',
+  },
+  // Apparel
+  {
+    name: 'Nike Dri-FIT Primary',
+    description: 'From your first warm-up to your final cool-down, this top has the stretch you need.',
+    price: 4500,
+    image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&q=80',
+    category: 'Men',
+    subcategory: 'Clothing',
+    color: 'Blue',
   },
   {
     name: 'Nike Sportswear Tech Fleece',
-    description: 'Premium fleece with a modern design. The Nike Tech Fleece hoodie provides warmth without the weight.',
-    price: 11000, // $110.00
-    image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&q=80',
-    category: 'Apparel',
+    description: 'The Nike Sportswear Tech Fleece Windrunner Hoodie is a premium layering piece.',
+    price: 12000,
+    image: 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=800&q=80',
+    category: 'Men',
+    subcategory: 'Clothing',
+    color: 'Grey',
+  },
+  // Adding more for pagination testing
+  {
+    name: 'Nike Air Max Dawn',
+    description: 'Rooted in track DNA, the Air Max Dawn is made with at least 20% recycled material by weight.',
+    price: 12000,
+    image: 'https://images.unsplash.com/photo-1605348532760-6753d2c43329?w=800&q=80',
+    category: 'Men',
+    subcategory: 'Shoes',
+    color: 'Grey',
   },
   {
-    name: 'Nike Brasilia Training Backpack',
-    description: 'Durable and spacious, the Nike Brasilia backpack has multiple compartments to keep your gear organized.',
-    price: 3500, // $35.00
-    image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&q=80',
-    category: 'Accessories',
+    name: 'Nike Court Vision Low',
+    description: 'Fast-break style of the \'80s meets the fast-paced culture of today\'s game.',
+    price: 7500,
+    image: 'https://images.unsplash.com/photo-1628413993904-94ec040f3a40?w=800&q=80',
+    category: 'Women',
+    subcategory: 'Shoes',
+    color: 'White',
   },
   {
-    name: 'Nike Air Force 1',
-    description: 'The iconic Nike Air Force 1 brings classic basketball style to the streets with premium leather and timeless design.',
-    price: 11000, // $110.00
-    image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&q=80',
-    category: 'Shoes',
+    name: 'Nike Air Winflo 10',
+    description: 'A balanced ride to help kickstart your run, the Winflo 10 is a neutral trainer.',
+    price: 10000,
+    image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80',
+    category: 'Women',
+    subcategory: 'Shoes',
+    color: 'Pink',
   },
   {
-    name: 'Nike Pro Training Shorts',
-    description: 'Designed for intense workouts, Nike Pro shorts provide compression and support with moisture-wicking fabric.',
-    price: 3000, // $30.00
-    image: 'https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=800&q=80',
-    category: 'Apparel',
-  },
-  {
-    name: 'Nike ZoomX Vaporfly',
-    description: 'Built for speed, the Nike ZoomX Vaporfly features responsive cushioning and a carbon fiber plate for maximum energy return.',
-    price: 25000, // $250.00
-    image: 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=800&q=80',
-    category: 'Shoes',
+    name: 'Nike Everyday Cushioned',
+    description: 'Power through your workout with the Nike Everyday Cushioned Socks.',
+    price: 1800,
+    image: 'https://images.unsplash.com/photo-1582966579677-2930802bc394?w=800&q=80',
+    category: 'Kids',
+    subcategory: 'Accessories',
+    color: 'White',
   },
 ];
 
@@ -65,8 +122,12 @@ async function seed() {
   try {
     console.log('🌱 Seeding database...');
 
-    // Insert products
-    await db.insert(products).values(nikeProducts);
+    // Clear existing products first
+    await db.delete(products);
+    console.log('🗑️ Existing products cleared');
+
+    // Insert new products
+    await db.insert(products).values(nikeProducts as any);
 
     console.log('✅ Database seeded successfully!');
     console.log(`📦 Inserted ${nikeProducts.length} Nike products`);
@@ -78,4 +139,3 @@ async function seed() {
 }
 
 seed();
-
