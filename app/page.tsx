@@ -3,6 +3,7 @@ import { products } from '@/lib/db/schema';
 import ProductCard from '@/components/ProductCard';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
 
@@ -104,8 +105,8 @@ export default async function Home() {
               <h2 className="text-white text-4xl lg:text-6xl font-black uppercase tracking-tighter mb-4 italic">BECOME A MEMBER</h2>
               <p className="text-white/80 text-lg lg:text-xl mb-8">Sign up for free and get personal access to the best of Nike: products, communities, and coaching.</p>
               <div className="flex gap-4">
-                <button className="bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-light-300">Join Us</button>
-                <button className="bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-light-300">Sign In</button>
+                <Link href="/auth" className="bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-light-300">Join Us</Link>
+                <Link href="/auth" className="bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-light-300">Sign In</Link>
               </div>
             </div>
           </div>

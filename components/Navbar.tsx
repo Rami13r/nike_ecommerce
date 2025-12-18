@@ -3,18 +3,44 @@
 import Link from 'next/link';
 import { useCartStore } from '@/lib/store/cartStore';
 import { useEffect, useState } from 'react';
+import { authClient } from '@/lib/auth-client';
+import { useRouter } from 'next/navigation';
 
 export default function Navbar() {
   const [mounted, setMounted] = useState(false);
   const cartCount = useCartStore((state) => state.getTotalItems());
+  const { data: session, isPending } = authClient.useSession();
+  const router = useRouter();
 
-  // Prevent hydration mismatch
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  const handleSignOut = async () => {
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.refresh();
+        }
+      }
+    });
+  };
+
   return (
     <header className="nike-navbar">
+      {/* Top Strip */}
+      <div className="bg-light-200 py-1 px-12 flex justify-end gap-4 text-[11px] font-bold">
+        {mounted && !isPending && session ? (
+          <>
+            <span className="text-dark-900 border-r border-light-400 pr-4">Hi, {session.user.name}</span>
+            <button onClick={handleSignOut} className="hover:opacity-70">Sign Out</button>
+          </>
+        ) : (
+          <Link href="/auth" className="hover:opacity-70">Join Us / Sign In</Link>
+        )}
+        <Link href="#" className="hover:opacity-70">Help</Link>
+      </div>
+
       <div className="nike-navbar__container">
         {/* Nike Logo */}
         <Link href="/">
@@ -34,14 +60,12 @@ export default function Navbar() {
 
         {/* Actions */}
         <div className="nike-navbar__actions">
-          <Link href="#" className="nike-navbar__search">Search</Link>
-          <Link href="#" className="nike-navbar__cart">
-            My Cart ({mounted ? cartCount : 0})
+          <Link href="#" className="nike-navbar__search text-sm">Search</Link>
+          <Link href="#" className="nike-navbar__cart text-sm">
+            Cart ({mounted ? cartCount : 0})
           </Link>
-          <Link href="#" className="nike-navbar__link text-sm ml-2">Sign In</Link>
         </div>
       </div>
     </header>
   );
 }
-
