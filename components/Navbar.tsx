@@ -1,6 +1,18 @@
+'use client';
+
 import Link from 'next/link';
+import { useCartStore } from '@/lib/store/cartStore';
+import { useEffect, useState } from 'react';
 
 export default function Navbar() {
+  const [mounted, setMounted] = useState(false);
+  const cartCount = useCartStore((state) => state.getTotalItems());
+
+  // Prevent hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <header className="nike-navbar">
       <div className="nike-navbar__container">
@@ -23,9 +35,13 @@ export default function Navbar() {
         {/* Actions */}
         <div className="nike-navbar__actions">
           <Link href="#" className="nike-navbar__search">Search</Link>
-          <Link href="#" className="nike-navbar__cart">My Cart (2)</Link>
+          <Link href="#" className="nike-navbar__cart">
+            My Cart ({mounted ? cartCount : 0})
+          </Link>
+          <Link href="#" className="nike-navbar__link text-sm ml-2">Sign In</Link>
         </div>
       </div>
     </header>
   );
 }
+
