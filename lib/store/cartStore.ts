@@ -1,14 +1,14 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-export interface Product {
+interface Product {
   id: number;
   name: string;
   description: string;
   price: number;
   image: string;
   category: string;
-  createdAt: string;
+  createdAt: any;
 }
 
 interface CartItem extends Product {
@@ -17,10 +17,11 @@ interface CartItem extends Product {
 
 interface CartStore {
   items: CartItem[];
-  addItem: (product: any) => void;
+  addItem: (product: Product) => void;
   removeItem: (productId: number) => void;
   clearCart: () => void;
   getTotalItems: () => number;
+  getTotalPrice: () => number;
 }
 
 export const useCartStore = create<CartStore>()(
@@ -44,13 +45,29 @@ export const useCartStore = create<CartStore>()(
         }
       },
       removeItem: (productId) => {
-        set({
-          items: get().items.filter((item) => item.id !== productId),
-        });
+        const currentItems = get().items;
+        const existingItem = currentItems.find((item) => item.id === productId);
+
+        if (existingItem && existingItem.quantity > 1) {
+          set({
+            items: currentItems.map((item) =>
+              item.id === productId
+                ? { ...item, quantity: item.quantity - 1 }
+                : item
+            ),
+          });
+        } else {
+          set({
+            items: currentItems.filter((item) => item.id !== productId),
+          });
+        }
       },
       clearCart: () => set({ items: [] }),
       getTotalItems: () => {
         return get().items.reduce((total, item) => total + item.quantity, 0);
+      },
+      getTotalPrice: () => {
+        return get().items.reduce((total, item) => total + item.price * item.quantity, 0);
       },
     }),
     {
