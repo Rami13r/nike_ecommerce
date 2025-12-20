@@ -8,7 +8,11 @@ interface Product {
   price: number;
   image: string;
   category: string;
-  createdAt: any;
+  subcategory?: string | null;
+  color?: string | null;
+  gender?: string | null;
+  selectedSize?: string | null;
+  createdAt?: any;
 }
 
 interface CartItem extends Product {
