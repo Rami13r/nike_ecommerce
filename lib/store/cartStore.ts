@@ -22,7 +22,8 @@ interface CartItem extends Product {
 interface CartStore {
   items: CartItem[];
   addItem: (product: Product) => void;
-  removeItem: (productId: number) => void;
+  removeItem: (productId: number, size?: string | null) => void;
+  deleteItem: (productId: number, size?: string | null) => void;
   clearCart: () => void;
   getTotalItems: () => number;
   getTotalPrice: () => number;
@@ -34,12 +35,14 @@ export const useCartStore = create<CartStore>()(
       items: [],
       addItem: (product) => {
         const currentItems = get().items;
-        const existingItem = currentItems.find((item) => item.id === product.id);
+        const existingItem = currentItems.find(
+          (item) => item.id === product.id && item.selectedSize == product.selectedSize
+        );
 
         if (existingItem) {
           set({
             items: currentItems.map((item) =>
-              item.id === product.id
+              item.id === product.id && item.selectedSize == product.selectedSize
                 ? { ...item, quantity: item.quantity + 1 }
                 : item
             ),
@@ -48,23 +51,35 @@ export const useCartStore = create<CartStore>()(
           set({ items: [...currentItems, { ...product, quantity: 1 }] });
         }
       },
-      removeItem: (productId) => {
+      removeItem: (productId, size) => {
         const currentItems = get().items;
-        const existingItem = currentItems.find((item) => item.id === productId);
+        const existingItem = currentItems.find(
+          (item) => item.id === productId && item.selectedSize == size
+        );
 
         if (existingItem && existingItem.quantity > 1) {
           set({
             items: currentItems.map((item) =>
-              item.id === productId
+              item.id === productId && item.selectedSize == size
                 ? { ...item, quantity: item.quantity - 1 }
                 : item
             ),
           });
         } else {
           set({
-            items: currentItems.filter((item) => item.id !== productId),
+            items: currentItems.filter(
+              (item) => !(item.id === productId && item.selectedSize == size)
+            ),
           });
         }
+      },
+      deleteItem: (productId, size) => {
+        const currentItems = get().items;
+        set({
+          items: currentItems.filter(
+            (item) => !(item.id === productId && item.selectedSize == size)
+          ),
+        });
       },
       clearCart: () => set({ items: [] }),
       getTotalItems: () => {
