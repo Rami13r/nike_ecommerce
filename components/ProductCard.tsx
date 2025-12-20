@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useCartStore } from '@/lib/store/cartStore';
+import { useFavoritesStore } from '@/lib/store/favoritesStore';
+import { Heart } from 'lucide-react';
 
 interface Product {
   id: number;
@@ -23,6 +25,8 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const addItem = useCartStore((state) => state.addItem);
+  const { toggleFavorite, isFavorite } = useFavoritesStore();
+  const favorited = isFavorite(product.id);
 
   const formatPrice = (price: number) => {
     return `$${(price / 100).toFixed(2)}`;
@@ -37,10 +41,27 @@ export default function ProductCard({ product }: ProductCardProps) {
     addItem(product);
   };
 
+  const handleToggleFavorite = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleFavorite(product);
+  };
+
   return (
     <Link href={`/product/${product.id}`} className="product-card group block">
       {/* Image Container */}
       <div className="product-card__image-container">
+        {/* Favorite Button */}
+        <button
+          onClick={handleToggleFavorite}
+          className="absolute top-4 right-4 z-20 p-2 bg-white rounded-full shadow-md hover:scale-110 transition-all duration-200 cursor-pointer"
+        >
+          <Heart
+            className={`w-5 h-5 transition-colors ${favorited ? 'fill-red text-red' : 'text-dark-900'
+              }`}
+          />
+        </button>
+
         {/* Best Seller Badge - show randomly for demo */}
         {product.id % 3 === 0 && (
           <div className="product-card__badge">Best Seller</div>

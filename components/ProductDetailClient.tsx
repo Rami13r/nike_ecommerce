@@ -3,7 +3,9 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { useCartStore } from '@/lib/store/cartStore';
+import { useFavoritesStore } from '@/lib/store/favoritesStore';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Heart } from 'lucide-react';
 
 interface Product {
   id: number;
@@ -29,6 +31,8 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
   const [adding, setAdding] = useState(false);
   const [added, setAdded] = useState(false);
   const addItem = useCartStore((state) => state.addItem);
+  const { toggleFavorite, isFavorite } = useFavoritesStore();
+  const favorited = isFavorite(product.id);
 
   const formatPrice = (price: number) => {
     return `$${(price / 100).toFixed(2)}`;
@@ -52,6 +56,10 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
       setShowError(false);
       setTimeout(() => setAdded(false), 3000);
     }, 600);
+  };
+
+  const handleToggleFavorite = () => {
+    toggleFavorite(product);
   };
 
   return (
@@ -236,12 +244,15 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
               </AnimatePresence>
             </button>
             <button
-              className="w-full py-5 border border-light-300 font-black uppercase tracking-widest text-sm rounded-full hover:border-dark-900 transition-all hover:bg-light-100 flex items-center justify-center gap-2 active:scale-[0.98]"
+              onClick={handleToggleFavorite}
+              className={`w-full py-5 border font-black uppercase tracking-widest text-sm rounded-full transition-all flex items-center justify-center gap-2 active:scale-[0.98] cursor-pointer
+                ${favorited
+                  ? 'border-red text-red bg-red/5'
+                  : 'border-light-300 text-dark-900 hover:border-dark-900 hover:bg-light-100'
+                }`}
             >
-              Favorite
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-              </svg>
+              {favorited ? 'Favorited' : 'Favorite'}
+              <Heart className={`w-5 h-5 ${favorited ? 'fill-red text-red' : ''}`} />
             </button>
           </div>
 

@@ -15,6 +15,7 @@ function ShopContent({ initialProducts }: ShopPageClientProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const categoryParam = searchParams.get('category');
+  const queryParam = searchParams.get('q') || '';
 
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedSubcategory, setSelectedSubcategory] = useState<string>('All');
@@ -29,16 +30,22 @@ function ShopContent({ initialProducts }: ShopPageClientProps) {
     } else {
       setSelectedCategory('All');
     }
+    // Also reset subcategory and color when category changes from URL
+    setSelectedSubcategory('All');
+    setSelectedColor('All');
+    setCurrentPage(1);
   }, [categoryParam]);
 
   const updateCategory = (cat: string) => {
     setSelectedCategory(cat);
     setCurrentPage(1);
+    const params = new URLSearchParams(searchParams.toString());
     if (cat === 'All') {
-      router.push('/shop');
+      params.delete('category');
     } else {
-      router.push(`/shop?category=${cat}`);
+      params.set('category', cat);
     }
+    router.push(`/shop?${params.toString()}`);
   };
 
   const clearFilters = () => {
@@ -57,6 +64,17 @@ function ShopContent({ initialProducts }: ShopPageClientProps) {
   // Filter and Sort Logic
   const filteredProducts = useMemo(() => {
     let result = [...initialProducts];
+
+    // Search Query Filter
+    if (queryParam) {
+      const q = queryParam.toLowerCase();
+      result = result.filter(p =>
+        p.name.toLowerCase().includes(q) ||
+        p.description?.toLowerCase().includes(q) ||
+        p.category.toLowerCase().includes(q) ||
+        p.subcategory?.toLowerCase().includes(q)
+      );
+    }
 
     if (selectedCategory !== 'All') {
       result = result.filter(p => p.category === selectedCategory);
@@ -77,7 +95,7 @@ function ShopContent({ initialProducts }: ShopPageClientProps) {
     }
 
     return result;
-  }, [initialProducts, selectedCategory, selectedSubcategory, selectedColor, sortBy]);
+  }, [initialProducts, selectedCategory, selectedSubcategory, selectedColor, sortBy, queryParam]);
 
   // Pagination Logic
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
@@ -92,7 +110,9 @@ function ShopContent({ initialProducts }: ShopPageClientProps) {
 
         {/* Sidebar Filters */}
         <aside className="w-full md:w-64 shrink-0">
-          <h1 className="text-2xl font-black uppercase tracking-tighter mb-8 italic">New Releases</h1>
+          <h1 className="text-2xl font-black uppercase tracking-tighter mb-8 italic">
+            {queryParam ? `Results for "${queryParam}"` : 'New Releases'}
+          </h1>
 
           <div className="space-y-8">
             {/* Category Filter */}

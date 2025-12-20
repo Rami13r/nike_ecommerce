@@ -5,12 +5,17 @@ import { useCartStore } from '@/lib/store/cartStore';
 import { useEffect, useState } from 'react';
 import { authClient } from '@/lib/auth-client';
 import { useRouter } from 'next/navigation';
+import { useFavoritesStore } from '@/lib/store/favoritesStore';
+import { Heart } from 'lucide-react';
 import CartTray from './CartTray';
+import SearchOverlay from './SearchOverlay';
 
 export default function Navbar() {
   const [mounted, setMounted] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const cartCount = useCartStore((state) => state.getTotalItems());
+  const favoriteCount = useFavoritesStore((state) => state.items.length);
   const { data: session, isPending } = authClient.useSession();
   const router = useRouter();
 
@@ -63,7 +68,20 @@ export default function Navbar() {
 
           {/* Actions */}
           <div className="nike-navbar__actions">
-            <Link href="#" className="nike-navbar__search text-sm">Search</Link>
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              className="nike-navbar__search text-sm cursor-pointer bg-transparent border-none flex items-center gap-1"
+            >
+              Search
+            </button>
+            <Link href="/favorites" className="p-2 hover:bg-light-100 rounded-full transition-all relative group">
+              <Heart className="w-5 h-5 text-dark-900 group-hover:scale-110 transition-transform" />
+              {mounted && favoriteCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-dark-900 text-white text-[9px] font-black min-w-4 h-4 px-1 rounded-full flex items-center justify-center">
+                  {favoriteCount}
+                </span>
+              )}
+            </Link>
             <button
               onClick={() => setIsCartOpen(true)}
               className="nike-navbar__cart text-sm flex items-center gap-1 cursor-pointer bg-transparent border-none"
@@ -77,6 +95,11 @@ export default function Navbar() {
       <CartTray
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}
+      />
+
+      <SearchOverlay
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
       />
     </>
   );
